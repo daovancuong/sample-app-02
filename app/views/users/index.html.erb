@@ -1,0 +1,17 @@
+<p id="notice"><%= notice %></p>
+
+<h1>All Users</h1>
+<%= will_paginate %>
+<ul class="users">
+  <%= @users.each do |x| %>
+      <li><%= link_to x.name, x %></li>
+      <li><%= gravatar_for x, size: 50 %></li>
+      <% if current_user.admin? && !current_user?(x) %>
+          <%= link_to "delete", x, method: :delete, data: {confirm: "are you sure?"} %>
+      <% end %>
+  <% end %>
+</ul>
+<%= will_paginate %>
+<br>
+
+<%= link_to 'New User', new_user_path %>
