@@ -23,13 +23,13 @@ class User < ApplicationRecord
     BCrypt::Password.create(string, cost: cost)
   end
 
-  def self.new_token
+  def new_token
     SecureRandom.urlsafe_base64
   end
 
   def remember
     self.remember_token=self.new_token
-    update_attribute(:remember_digest, digest(self.remember_token))
+    update_attribute(:remember_digest, User.digest(self.remember_token))
   end
 
   def authenticated?(attribute, token)
